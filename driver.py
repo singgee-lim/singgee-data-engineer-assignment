@@ -40,6 +40,7 @@ class Assignment:
         with open(sql_file_path) as infile:
             query = infile.read()
 
+        print(f'Running question num:{qn_num}')
         self.run_query(query, f'Qn{qn_num}')
 
     def create_dataset(self):
@@ -66,9 +67,8 @@ if __name__ == '__main__':
             raise Exception('Failed to determine project_id')
     else:
         project_id = args.project
-        
-    # Construct a BigQuery client object.
-    client = bigquery.Client()
+    # Construct a BigQuery client object
+    client = bigquery.Client(project=project_id)
     # Construct a Assignment object.
     assignment = Assignment(client, project_id, args.dataset_name, args.sql_folder, args.result_folder)
     # Run query for assignment questions
